@@ -7,7 +7,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data2.sqlite')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -29,15 +29,32 @@ class Film(db.Model):
         self.image = image
         self.wiki = wiki
 
+    def __repr__(self):
+        ...    
+
+class Acteur(db.Model):
+    id = db.Column(db.Integer,primary_key=True,autoincrement=True)
+    voornaam = db.Column(db.Text)
+    achternaam = db.Column(db.Text)
+
+    def __init__(self, voornaam, achternaam):
+        self.voornaam = voornaam
+        self.achternaam = achternaam
+
+    def __repr__(self):
+        ...
+        
 
 
+class Regisseur(db.Model):
+    id = db.Column(db.Integer,primary_key=True,autoincrement=True)
+    voornaam = db.Column(db.Text)
+    achternaam = db.Column(db.Text)
 
-# class Acteur(db.Model):
-#     id = db.Column(db.Integer,primary_key=True,autoincrement=True)
-#     voornaam = db.Column(db.Text)
-#     achternaam = db.Column(db.Text)
+    def __init__(self, voornaam, achternaam):
+        self.voornaam = voornaam
+        self.achternaam = achternaam
 
-# class Regisseur(db.Model):
-#     id = db.Column(db.Integer,primary_key=True,autoincrement=True)
-#     voornaam = db.Column(db.Text)
-#     achternaam = db.Column(db.Text)
+    def __repr__(self):
+        ...    
+        
