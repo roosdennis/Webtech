@@ -2,7 +2,11 @@
 {% block content %}
     <h1> Welcome </h1>
 <div class="jumbotronn">
-
+    {%if current_user.is_authenticated %}
+    <p>Hi {{current_user.username}}</p>
+    {% else %}
+    <p>Please login or register</p>
+    {% endif%}
 </div>
 {% endblock%}
 

@@ -17,7 +17,9 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 login_manager = LoginManager() #create instance loginmanager
 
 
-
+@login_manager.user.loader
+def load_user(user_id):
+    return User.query.get(user.id)
 
 
 
