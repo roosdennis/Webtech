@@ -39,14 +39,14 @@ class DelActeurForm(FlaskForm):
 class LoginForm(FlaskForm):
 #    email = StringField('Email',validators=[DataRequired(),Email()])
     Password = PasswordField('Password', validators=[DataRequired()])
-    Submit = SubmitField("log in")
+    Submit = SubmitField("Log in")
 
 class RegistrationForm(FlaskForm):
 #    email = StringField('Email',validators=[DataRequired(),Email()])
     username = StringField('Gebruikersnaam', validators=[DataRequired()])
-    passwoord = PasswordField('Wachtwoord', validators=[DataRequired(),EqualTo('pass_confirm',message='Wachtwoorden komenn nniet over een')])
+    passwoord = PasswordField('Wachtwoord', validators=[DataRequired(),EqualTo('pass_confirm',message='Wachtwoorden komenn niet overeen')])
     pass_confirm = PasswordField('herhaal Wachtwoord',validators=[DataRequired()])
-    submit = SubmitField('registreer!')
+    submit = SubmitField('Registreer!')
 
     def check_email(self,field):
         if User.query.filter_by(email=field.data).first():
