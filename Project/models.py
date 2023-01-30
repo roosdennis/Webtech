@@ -104,15 +104,15 @@ class Rol(db.Model):
 class User(db.model.UserMixin):
     __tablename__ = 'users'
 
-    id = dp.columnn(db.integer,primary_key = True)
+    id = db.Columnn(db.integer,primary_key = True)
     email = db.Column(db.String(64), unique = True,inndex=True)
     username = db.columnn(db.String(64),Unique=True, index=True)
     password_hash = db.column(db.String(128))
 
-    def __init__(self,email,usernname,passwoord):
+    def __init__(self,email,username,password):
         self.email = email
         self.username = username
-        self.password.hash = generate_passwordhash(password)
+        self.password.hash = generate_password_hash(password)
 
     def check_password(self,password):
         return check_password_hash(self.password_hash,password)
