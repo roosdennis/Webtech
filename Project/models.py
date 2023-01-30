@@ -9,7 +9,7 @@ app.config['SECRET_KEY'] = 'mysecretkey'
 
 ##########################################
 
-        # SQL DATABASE AND MODELS
+        # SQL DATABASE
 
 ##########################################
 
@@ -78,7 +78,7 @@ class Rol(db.Model):
 
 ##########################################
 
-        # VIEWS WITH FORMS
+        # Routeringen
 
 ##########################################
 
