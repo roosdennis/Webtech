@@ -86,28 +86,6 @@ class Rol(db.Model):
 def index():
     return render_template('home.html')
 
-# @app.route('/addfilm', methods=['GET', 'POST'])
-# def add_film():
-#     form = AddFilmForm()
-
-#     if form.validate_on_submit():
-#         titel = form.titel.data
-#         # Add new Film to database
-#         new_film = Film(titel)
-#         db.session.add(new_film)
-#         db.session.commit()
-
-#         return redirect(url_for('list_film'))
-
-#     return render_template('add.html',form=form)
-
-# @app.route('/list')
-# def list_Film():
-#     # Grab a list of all Films from the database.
-#     films = Film.query.all()
-#     return render_template('list.html', Film=Film)
-
-
 if __name__ == '__main__':
     app.run(debug=True)    
 
