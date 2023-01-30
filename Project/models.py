@@ -1,7 +1,8 @@
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-# import flask_sqlalchemy
+from flask_migrate import Migrate
+
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -11,6 +12,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'da
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
+
+Migrate(app, db)
 
 class Film(db.Model):
     id = db.Column(db.Integer,primary_key=True,autoincrement=True)
@@ -30,7 +33,7 @@ class Film(db.Model):
         self.wiki = wiki
 
     def __repr__(self):
-        ...    
+        return f"Film {self.titel} is uitgekomen in {self.jaartal}"    
 
 class Acteur(db.Model):
     id = db.Column(db.Integer,primary_key=True,autoincrement=True)
