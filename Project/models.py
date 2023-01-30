@@ -10,6 +10,7 @@ app.config['SECRET_KEY'] = 'mysecretkey'
 ##########################################
 
         # SQL DATABASE
+        #dikkelul
 
 ##########################################
 
