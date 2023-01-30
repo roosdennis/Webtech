@@ -1,7 +1,7 @@
 CMD
 
 conda activate webtech
-
+set FLASK_APP=<flask app.py>
 flask db init
 flask db migrate -m "<message>"
 flask db upgrade

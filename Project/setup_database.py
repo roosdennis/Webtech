@@ -1,3 +1,3 @@
-from models import db, Film, Acteur, Regisseur
+from models import db, Film, Acteur, Regisseur, rol
 
 db.create_all()
