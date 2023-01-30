@@ -1,13 +1,19 @@
 import os
-from flask import Flask
+from forms import  AddFilmForm , DelFilmForm
+from flask import Flask, render_template, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'mysecretkey'
+
+##########################################
+
+        # SQL DATABASE AND MODELS
+
+##########################################
 
 basedir = os.path.abspath(os.path.dirname(__file__))
-
-app = Flask(__name__)
-
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -29,7 +35,7 @@ class Film(db.Model):
         
 
     def __repr__(self):
-        return f"Film {self.titel} is uitgekomen in {self.jaartal}"    
+        return f"Film {self.titel} is uitgekomen in {self.jaartal} en is geregisseerd door {self.regisseur_id}"    
 
 class Regisseur(db.Model):
     id = db.Column(db.Integer,primary_key=True,autoincrement=True)
@@ -69,3 +75,39 @@ class Rol(db.Model):
 
     def __repr__(self):
         ...    
+
+##########################################
+
+        # VIEWS WITH FORMS
+
+##########################################
+
+@app.route('/')
+def index():
+    return render_template('home.html')
+
+# @app.route('/addfilm', methods=['GET', 'POST'])
+# def add_film():
+#     form = AddFilmForm()
+
+#     if form.validate_on_submit():
+#         titel = form.titel.data
+#         # Add new Film to database
+#         new_film = Film(titel)
+#         db.session.add(new_film)
+#         db.session.commit()
+
+#         return redirect(url_for('list_film'))
+
+#     return render_template('add.html',form=form)
+
+# @app.route('/list')
+# def list_Film():
+#     # Grab a list of all Films from the database.
+#     films = Film.query.all()
+#     return render_template('list.html', Film=Film)
+
+
+if __name__ == '__main__':
+    app.run(debug=True)    
+
