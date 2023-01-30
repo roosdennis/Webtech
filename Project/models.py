@@ -1,5 +1,5 @@
 import os
-from forms import  AddFilmForm , DelFilmForm, AddRegisseurForm, AddActeurForm
+from forms import  AddFilmForm , DelFilmForm, AddRegisseurForm, AddActeurForm, DelRegisseurForm, DelActeurForm
 from flask import Flask, render_template, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -73,7 +73,7 @@ class Regisseur(db.Model):
         self.achternaam = achternaam
 
     def __repr__(self):
-        ...    
+        return f"Regisseur {self.voornaam} {self.achternaam} heeft het volgende ID: {self.id}"   
 
 class Acteur(db.Model):
     id = db.Column(db.Integer,primary_key=True,autoincrement=True)
@@ -180,19 +180,19 @@ def add_regisseur():
 
 @app.route('/listregisseurs')
 def list_regisseurs():
-    regisseurs = Film.query.all()
+    regisseurs = Regisseur.query.all()
     return render_template('listregisseurs.html', regisseurs = regisseurs)
 
-# @app.route('/delregisseur', methods=['GET', 'POST'])
-# def del_regisseur():
-#     form = DelRegisseurForm()
-#     if form.validate_on_submit():
-#         id = form.id.data
-#         regisseur = Regisseur.query.get(id)
-#         db.session.delete(regisseur)
-#         db.session.commit()
-#         return redirect(url_for('list_regisseur'))
-#     return render_template('/delregisseur.html', form=form)        
+@app.route('/delregisseur', methods=['GET', 'POST'])
+def del_regisseur():
+    form = DelRegisseurForm()
+    if form.validate_on_submit():
+        id = form.id.data
+        regisseur = Regisseur.query.get(id)
+        db.session.delete(regisseur)
+        db.session.commit()
+        return redirect(url_for('list_regisseurs'))
+    return render_template('/delregisseur.html', form=form)        
 
 ##########################################
 
