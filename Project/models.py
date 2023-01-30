@@ -17,9 +17,7 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 login_manager = LoginManager() #create instance loginmanager
 
 
-@login_manager.user.loader
-def load_user(user_id):
-    return User.query.get(user.id)
+
 
 
 
@@ -32,6 +30,9 @@ def load_user(user_id):
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecretkey'
 
+@login_manager.user.loader
+def load_user(user_id):
+    return User.query.get(user.id)
 
 ##########################################
 
@@ -226,7 +227,7 @@ def loginn():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
 
-        if user.check_password(form.password.data) and user is not none:
+        if user.check_password(form.password.data) and user is not None:
 
             login_user(user)
             flash('succesvol ingelogd!')
