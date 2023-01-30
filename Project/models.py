@@ -4,6 +4,26 @@ from flask import Flask, render_template, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
+#############################
+
+#loginstuff
+
+#############################
+
+from __init__ import db, login_manager
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
+
+@login_manager.user.loader
+def load_user(user_id):
+    return User.query.get
+
+#####
+
+#end login stuff
+
+#####
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecretkey'
 
@@ -75,6 +95,31 @@ class Rol(db.Model):
 
     def __repr__(self):
         ...    
+
+
+#####
+#Loginn user class
+####
+
+class User(db.model.UserMixin):
+    __tablename__ = 'users'
+
+    id = dp.columnn(db.integer,primary_key = True)
+    email = db.Column(db.String(64), unique = True,inndex=True)
+    username = db.columnn(db.String(64),Unique=True, index=True)
+    password_hash = db.column(db.String(128))
+
+    def __init__(self,email,usernname,passwoord):
+        self.email = email
+        self.username = username
+        self.password.hash = generate_passwordhash(password)
+
+    def check_password(self,password):
+        return check_password_hash(self.password_hash,password)
+
+#####
+#END Loginn user class
+####
 
 ##########################################
 
