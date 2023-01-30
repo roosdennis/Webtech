@@ -7,6 +7,18 @@ class AddFilmForm(FlaskForm):
     regisseur = IntegerField('Welke Regisseur heeft de film geregisseerd? (ID)')
     submit = SubmitField('Voeg de Film toe')
 
+class AddRegisseurForm(FlaskForm):
+    voornaam = StringField('Voornaam van de Regisseur:')
+    achternaam = IntegerField('In welk jaar kwam de film uit?')
+    regisseur = IntegerField('Welke Regisseur heeft de film geregisseerd? (ID)')
+    submit = SubmitField('Voeg de Film toe')
+
+class AddActeurForm(FlaskForm):
+    titel = StringField('Titel van de Film:')
+    jaartal = IntegerField('In welk jaar kwam de film uit?')
+    regisseur = IntegerField('Welke Regisseur heeft de film geregisseerd? (ID)')
+    submit = SubmitField('Voeg de Film toe')
+
 class DelFilmForm(FlaskForm):
 
     id = IntegerField('Welke Film wil je verwijderen? (ID):')
