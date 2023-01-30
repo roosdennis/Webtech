@@ -86,6 +86,19 @@ class Rol(db.Model):
 def index():
     return render_template('home.html')
 
+@app.route('/addfilm', methods=['GET', 'POST'])
+def add_film():
+    form = AddFilmForm()
+    if form.validate_on_submit():
+        titel = form.titel.data
+        jaartal = form.jaartal.data
+        regisseur = form.regisseur.data
+        new_film = Film(titel, jaartal, regisseur)
+        db.session.add(new_film)
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('addfilm.html', form=form)     
+
 if __name__ == '__main__':
     app.run(debug=True)    
 
