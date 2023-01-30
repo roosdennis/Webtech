@@ -96,8 +96,21 @@ def add_film():
         new_film = Film(titel, jaartal, regisseur)
         db.session.add(new_film)
         db.session.commit()
-        return redirect(url_for('index'))
-    return render_template('addfilm.html', form=form)     
+        return redirect(url_for('list_films'))
+    return render_template('addfilm.html', form=form)
+
+@app.route('/listfilms')
+def list_films():
+    films = Film.query.all()
+    return render_template('listfilms.html', films = films)
+
+##########################################
+
+        # Start de applicatie
+
+##########################################
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)    
