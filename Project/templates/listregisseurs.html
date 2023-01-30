@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="jumbotron">
+  <h1>Dit zijn alle regisseurs in de database.</h1>
+  <ul>
+    {% for regisseur in regisseurs  %}
+    <li>{{regisseur}}</li>
+    {% endfor %}
+  </ul>
+
+</div>
+{% endblock %}
