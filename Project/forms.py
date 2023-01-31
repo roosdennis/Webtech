@@ -35,11 +35,7 @@ class LoginForm(FlaskForm):
 class RegistrationForm(FlaskForm):
 #    email = StringField('Email',validators=[DataRequired(),Email()])
     username = StringField('Gebruikersnaam', validators=[DataRequired()])
-<<<<<<< HEAD
-    passwoord = PasswordField('Wachtwoord', validators=[DataRequired(),EqualTo('pass_confirm',message='Wachtwoorden komen niet overeen')])
-=======
-    passwoord = PasswordField('Wachtwoord', validators=[DataRequired(),EqualTo('pass_confirm',message='Wachtwoorden komenn nniet over een')])
->>>>>>> 791a95037cc241fe7a70833a3c8aed3801e61f05
+    password = PasswordField('Wachtwoord', validators=[DataRequired(),EqualTo('pass_confirm',message='Wachtwoorden komen niet overeen')])
     pass_confirm = PasswordField('herhaal Wachtwoord',validators=[DataRequired()])
     submit = SubmitField('registreer!')
 
