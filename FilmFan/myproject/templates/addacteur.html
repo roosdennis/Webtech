@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="jumbotron">
+  <h1>Wil je een actseur toevoegen?</h1>
+  <p>Vul onderstaand formulier in om een acteur toe te voegen aan de database:</p>
+  <form method="POST">
+      {{ form.hidden_tag() }}
+      {{ form.voornaam.label }} {{ form.voornaam() }} <br>
+      {{ form.achternaam.label }} {{ form.achternaam() }} <br>
+      {{ form.submit() }}
+  </form>
+</div>
+{% endblock %}

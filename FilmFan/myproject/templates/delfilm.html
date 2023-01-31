@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="jumbotron">
+  <h1>Wil je een filmverwijderen?</h1>
+  <p>Vul onderstaand formulier in om een film te verwijderen.</p>
+  <form method="POST">
+      {{ form.hidden_tag() }}
+      {{ form.id.label }} {{ form.id() }}
+      {{ form.submit() }}
+  </form>
+</div>
+{% endblock %}

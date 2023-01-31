@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="jumbotron">
+  <h1>Dit zijn alle Films in de database.</h1>
+  <ul>
+    {% for film in films  %}
+    <li>{{film}}</li>
+    {% endfor %}
+  </ul>
+
+</div>
+{% endblock %}
