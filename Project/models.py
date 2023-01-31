@@ -30,9 +30,9 @@ login_manager = LoginManager() #create instance loginmanager
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecretkey'
 
-@login_manager.user.loader
-def load_user(user_id):
-    return User.query.get(user.id)
+# @login_manager.user.loader
+# def load_user(user_id):
+#     return User.query.get(user.id)
 
 ##########################################
 
@@ -221,36 +221,27 @@ def logout():
 
 
 @app.route('/login' ,methods=['GET','POST'])
-def loginn():
-
+def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-
         if user.check_password(form.password.data) and user is not None:
-
             login_user(user)
             flash('succesvol ingelogd!')
-
             next = request.args.get('next')
-
             if next == None or not next[0]=='/':
-
                 next = url_for('welcome_user')
             return redirect(next)
-        
         return render_template('login.html',form=form)
 
 
 @app.route('/register', methods=['GET','POST'])
 def register():
     form = RegistrationForm()
-
     if form.validate_on_submit():
         user = User(email=form.email.data,
                     username=form.username.data,
                     password = form.password.data)
-
         db.session.add(user)
         db.session.commit()
         flash("bedannkt voor hett regeristreren!")

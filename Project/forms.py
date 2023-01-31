@@ -33,7 +33,7 @@ class LoginForm(FlaskForm):
     Submit = SubmitField("log in")
 
 class RegistrationForm(FlaskForm):
-#    email = StringField('Email',validators=[DataRequired(),Email()])
+    # email = StringField('Email',validators=[DataRequired(),Email()])
     username = StringField('Gebruikersnaam', validators=[DataRequired()])
     password = PasswordField('Wachtwoord', validators=[DataRequired(),EqualTo('pass_confirm',message='Wachtwoorden komen niet overeen')])
     pass_confirm = PasswordField('herhaal Wachtwoord',validators=[DataRequired()])
