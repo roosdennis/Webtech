@@ -1,6 +1,6 @@
 import os
-from forms import  AddFilmForm , DelFilmForm, AddRegisseurForm, DelRegisseurForm, AddActeurForm, DelActeurForm
-from flask import Flask, render_template, url_for, redirect
+from forms import  AddFilmForm , DelFilmForm, AddRegisseurForm, AddActeurForm, LoginForm, RegistrationForm
+from flask import Flask, render_template, url_for, redirect, request, flash, abort
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
@@ -12,8 +12,7 @@ from flask_migrate import Migrate
 
 
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin
-from flask_login import LoginManager
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user
 
 login_manager = LoginManager() #create instance loginmanager
 
@@ -31,6 +30,9 @@ login_manager = LoginManager() #create instance loginmanager
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecretkey'
 
+@login_manager.user.loader
+def load_user(user_id):
+    return User.query.get(user.id)
 
 ##########################################
 
@@ -73,7 +75,7 @@ class Regisseur(db.Model):
         self.achternaam = achternaam
 
     def __repr__(self):
-        return f"Regisseur {self.voornaam} {self.achternaam} heeft het volgende ID: {self.id}"   
+        ...    
 
 class Acteur(db.Model):
     id = db.Column(db.Integer,primary_key=True,autoincrement=True)
@@ -180,19 +182,87 @@ def add_regisseur():
 
 @app.route('/listregisseurs')
 def list_regisseurs():
-    regisseurs = Regisseur.query.all()
+    regisseurs = Film.query.all()
     return render_template('listregisseurs.html', regisseurs = regisseurs)
 
-@app.route('/delregisseur', methods=['GET', 'POST'])
-def del_regisseur():
-    form = DelRegisseurForm()
+# @app.route('/delregisseur', methods=['GET', 'POST'])
+# def del_regisseur():
+#     form = DelRegisseurForm()
+#     if form.validate_on_submit():
+#         id = form.id.data
+#         regisseur = Regisseur.query.get(id)
+#         db.session.delete(regisseur)
+#         db.session.commit()
+#         return redirect(url_for('list_regisseur'))
+#     return render_template('/delregisseur.html', form=form)        
+
+
+##########################################
+
+           #register&login
+
+##########################################
+
+@app.route('/')
+def home():
+    return render_template('home.html')
+
+@app.route('/welkom')
+@login_required
+def welcome_user():
+    return render_template('welcome_user.html')
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user
+    flash("u bent uitgelogd!")
+    return redirect(url_for('home'))
+
+
+@app.route('/login' ,methods=['GET','POST'])
+def loginn():
+
+    form = LoginForm()
     if form.validate_on_submit():
-        id = form.id.data
-        regisseur = Regisseur.query.get(id)
-        db.session.delete(regisseur)
+        user = User.query.filter_by(email=form.email.data).first()
+
+        if user.check_password(form.password.data) and user is not None:
+
+            login_user(user)
+            flash('succesvol ingelogd!')
+
+            next = request.args.get('next')
+
+            if next == Nnone or not next[0]=='/':
+
+                next = url_for('welcome_user')
+            return redirect(next)
+        
+        return render_template('login.html',form=form)
+
+
+@app.route('/register', methods=['GET','POST'])
+def register():
+    form = RegistrattionForm()
+
+    if form.validate_on_submit():
+        user = User(email=foorm.email.data,
+                    username=form.username.data,
+                    password = form.password.data)
+
+        db.session.add(user)
         db.session.commit()
-        return redirect(url_for('list_regisseurs'))
-    return render_template('/delregisseur.html', form=form)        
+        flash("bedannkt voor hett regeristreren!")
+        return rederect(url_for('login'))
+    return render_template('register.html',form=form)
+
+##########################################
+
+           #endregister&login
+
+##########################################
+
 
 ##########################################
 

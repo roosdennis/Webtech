@@ -34,7 +34,7 @@
                       <li><a class="dropdown-item" href="{{ url_for('add_regisseur') }}">Voeg regisseur toe</a></li>
                       <li><a class="dropdown-item" href="{{ url_for('list_regisseurs') }}">Lijst van regisseurs</a></li>
                       <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="{{ url_for('del_regisseur') }}">Verwijder een regisseur</a></li>
+                      <li><a class="dropdown-item" href="{{ url_for('index') }}">Verwijder een regisseur</a></li>
                     </ul>
                   </li>
                   <li class="nav-item dropdown">
@@ -47,6 +47,19 @@
                       <li><hr class="dropdown-divider"></li>
                       <li><a class="dropdown-item" href="{{ url_for('index') }}">Verwijder een acteur</a></li>
                     </ul>
+
+                    </a>
+                    <ul class='nav'>
+                        <li class='nav-link'><a href="{{url_for('home')}}">home</a></li>
+                        {%if current_user.is_authenticated %}
+                        <li class='nav-link' >"{{url_for('logout')}}"</li>
+                        {%else%}
+                        <li class='nav-link'><a href="{{url_for('logout'')}}">Log In</a></li>
+                        <li class='nav-link'><a href="{{url_for('register')}}">register</a></li>
+
+                        {% endif %}
+                    </ul>
+
                   </li>
                 </ul>
               </div>
