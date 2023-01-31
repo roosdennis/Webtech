@@ -234,7 +234,7 @@ def loginn():
 
             next = request.args.get('next')
 
-            if next == Nnone or not next[0]=='/':
+            if next == None or not next[0]=='/':
 
                 next = url_for('welcome_user')
             return redirect(next)
@@ -244,17 +244,17 @@ def loginn():
 
 @app.route('/register', methods=['GET','POST'])
 def register():
-    form = RegistrattionForm()
+    form = RegistrationForm()
 
     if form.validate_on_submit():
-        user = User(email=foorm.email.data,
+        user = User(email=form.email.data,
                     username=form.username.data,
                     password = form.password.data)
 
         db.session.add(user)
         db.session.commit()
         flash("bedannkt voor hett regeristreren!")
-        return rederect(url_for('login'))
+        return redirect(url_for('login'))
     return render_template('register.html',form=form)
 
 ##########################################
