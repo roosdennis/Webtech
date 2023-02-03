@@ -7,24 +7,24 @@ import email_validator
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    password = PasswordField('Wachtwoord', validators=[DataRequired()])
     submit = SubmitField('Log In')
 
 
 class RegistrationForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(),Email()])
-    username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired(), EqualTo('pass_confirm', message='Passwords Must Match!')])
-    pass_confirm = PasswordField('Confirm password', validators=[DataRequired()])
-    submit = SubmitField('Register!')
+    email = StringField('Email adres', validators=[DataRequired(),Email()])
+    username = StringField('Gebruikersnaam', validators=[DataRequired()])
+    password = PasswordField('Wachtwoord', validators=[DataRequired(), EqualTo('pass_confirm', message='De wachtwoorden komen niet over een')])
+    pass_confirm = PasswordField('Herhaal wachtwoord', validators=[DataRequired()])
+    submit = SubmitField('Registreer!')
 
     def check_email(self, field):
        if User.query.filter_by(email=field.data).first():
-            raise ValidationError('Your email has been registered already!')
+            raise ValidationError('Dit email adres is al geregeristreerd')
 
     def check_username(self, field):
         if User.query.filter_by(username=field.data).first():
-            raise ValidationError('Sorry, that username is taken!')
+            raise ValidationError('Sorry, deze gebruikersnaam is al in gebruik')
 
 class AddFilmForm(FlaskForm):
     titel = StringField('Titel van de Film:')
