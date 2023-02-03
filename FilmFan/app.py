@@ -1,9 +1,11 @@
 from myproject import app, db
-from flask import render_template, redirect, request, url_for, flash,abort
+from flask import render_template, redirect, request, url_for, flash, abort
 from flask_login import login_user,login_required,logout_user
 from myproject.models import User, Film, Regisseur, Acteur, Rol
 from myproject.forms import LoginForm, RegistrationForm, AddFilmForm, AddRegisseurForm, AddActeurForm, DelFilmForm, DelRegisseurForm, DelActeurForm
 from werkzeug.security import generate_password_hash, check_password_hash
+import sqlite3
+
 
 
 @app.route('/')
@@ -57,7 +59,8 @@ def add_film():
         titel = form.titel.data
         jaartal = form.jaartal.data
         regisseur = form.regisseur.data
-        new_film = Film(titel, jaartal, regisseur)
+        youtube = form.youtube.data
+        new_film = Film(titel, jaartal, regisseur, youtube)
         db.session.add(new_film)
         db.session.commit()
         return redirect(url_for('list_films'))
@@ -134,6 +137,28 @@ def del_acteur():
         db.session.commit()
         return redirect(url_for('list_acteurs'))
     return render_template('/delacteur.html', form=form)
+
+@app.route('/films/<film_naam>')
+# def retrieve_video_link_from_database(film_naam):
+#     conn = sqlite3.connect("data.sqlite")
+#     c = conn.cursor()
+#     c.execute("SELECT youtube FROM  film where titel=?",(film_naam))
+#     video_link = c.fetchone()[0]
+#     conn.close()
+#     return video_link
+
+def film_pagina(film_naam):
+    # video_link = retrieve_video_link_from_database(film_naam)
+    # return render_template('film.html', film_naam=film_naam, video_link=video_link)
+    return render_template('film.html', film_naam=film_naam)
+
+@app.route('/regisseurs/<regisseur_naam>')
+def regisseur_pagina(regisseur_naam):
+    return render_template('regisseur.html', regisseur_naam=regisseur_naam)
+
+@app.route('/acteurs/<acteur_naam>')
+def acteur_pagina(acteur_naam):
+    return render_template('acteur.html', acteur_naam=acteur_naam)
 
 if __name__ == '__main__':
     app.run(debug=True)

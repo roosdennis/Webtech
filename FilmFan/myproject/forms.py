@@ -30,6 +30,7 @@ class AddFilmForm(FlaskForm):
     titel = StringField('Titel van de Film:')
     jaartal = IntegerField('In welk jaar kwam de film uit?')
     regisseur = IntegerField('Welke Regisseur heeft de film geregisseerd? (ID)')
+    youtube = StringField('Wat is de link naar de Trailer?')
     submit = SubmitField('Voeg de Film toe')
 
 class AddRegisseurForm(FlaskForm):

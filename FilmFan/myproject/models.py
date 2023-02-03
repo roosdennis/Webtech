@@ -36,12 +36,14 @@ class Film(db.Model):
     titel = db.Column(db.Text)
     jaartal = db.Column(db.Integer)
     regisseur_id = db.Column(db.Integer)
+    youtube = db.Column(db.Text)
     
-    def __init__(self, titel, jaartal, regisseur_id):
+    def __init__(self, titel, jaartal, regisseur_id, youtube):
         self.titel = titel
         self.jaartal = jaartal
         self.regisseur_id = regisseur_id
-    
+        self.youtube = youtube
+        
     def __repr__(self):
         return f"Film {self.titel} is uitgekomen in {self.jaartal} en is geregisseerd door {self.regisseur_id}, het id van deze film is: {self.id}"    
 
