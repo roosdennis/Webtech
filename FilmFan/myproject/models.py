@@ -37,14 +37,14 @@ class Film(db.Model):
     jaartal = db.Column(db.Integer)
     regisseur_id = db.Column(db.Integer)
     youtube = db.Column(db.Text)
-    synopsis = db.column(db.Text)
     
-    def __init__(self, titel, jaartal, regisseur_id, youtube, synopsis):
+    
+    def __init__(self, titel, jaartal, regisseur_id, youtube):
         self.titel = titel
         self.jaartal = jaartal
         self.regisseur_id = regisseur_id
         self.youtube = youtube
-        self.synopsis = synopsis
+        
 
         
     def __repr__(self):

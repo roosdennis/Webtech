@@ -138,35 +138,35 @@ def del_acteur():
         return redirect(url_for('list_acteurs'))
     return render_template('/delacteur.html', form=form)
 
-# @app.route('/films/<film_naam>')
-# def retrieve_video_link_from_database(film_naam):
-#     conn = sqlite3.connect("data.sqlite")
-#     c = conn.cursor()
-#     c.execute("SELECT youtube FROM  film where titel=?",(film_naam))
-#     video_link = c.fetchone()[0]
-#     conn.close()
-#     return video_link
+@app.route('/films/<film_naam>')
+def retrieve_video_link_from_database(film_naam):
+    conn = sqlite3.connect("data.sqlite")
+    c = conn.cursor()
+    c.execute("SELECT youtube FROM  film WHERE titel=?",(film_naam))
+    video_link = c.fetchone()[0]
+    conn.close()
+    return video_link
 
-# def film_pagina(film_naam):
-#     video_link = retrieve_video_link_from_database(film_naam)
-#     return render_template('film.html', film_naam=film_naam, video_link=video_link)
-#     return render_template('film.html', film_naam=film_naam)
+def film_pagina(film_naam):
+    video_link = retrieve_video_link_from_database(film_naam)
+    return render_template('film.html', film_naam=film_naam, video_link=video_link)
+    return render_template('film.html', film_naam=film_naam)
 
-@app.route('/films/turksfruit')
-def turksfruit():
-    return render_template('films/turksfruit.html')
+# @app.route('/films/turksfruit')
+# def turksfruit():
+#     return render_template('films/turksfruit.html')
 
-@app.route('/films/soldaatvanoranje')
-def soldaatvanoranje():
-    return render_template('films/soldaatvanoranje.html')
+# @app.route('/films/soldaatvanoranje')
+# def soldaatvanoranje():
+#     return render_template('films/soldaatvanoranje.html')
 
-@app.route('/films/spetters')
-def spetters():
-    return render_template('films/spetters.html')
+# @app.route('/films/spetters')
+# def spetters():
+#     return render_template('films/spetters.html')
 
-@app.route('/films/zwartboek')
-def zwartboek():
-    return render_template('films/zwartboek.html')
+# @app.route('/films/zwartboek')
+# def zwartboek():
+#     return render_template('films/zwartboek.html')
 
 @app.route('/regisseurs/<regisseur_naam>')
 def regisseur_pagina(regisseur_naam):
