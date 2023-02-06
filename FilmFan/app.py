@@ -142,7 +142,7 @@ def del_acteur():
 def retrieve_video_link_from_database(film_naam):
     conn = sqlite3.connect("data.sqlite")
     c = conn.cursor()
-    c.execute("SELECT youtube FROM  film WHERE titel=?",(film_naam))
+    c.execute("SELECT achternaam FROM film WHERE titel=?",(film_naam))
     video_link = c.fetchone()[0]
     conn.close()
     return video_link
@@ -170,7 +170,7 @@ def film_pagina(film_naam):
 
 @app.route('/regisseurs/<regisseur_naam>')
 def regisseur_pagina(regisseur_naam):
-    return render_template('regisseur.html', regisseur_naam=regisseur_naam)
+    return render_template('regisseur.html', regisseur_naam=regisseur_naam, achternaam = id)
 
 @app.route('/acteurs/<acteur_naam>')
 def acteur_pagina(acteur_naam):
