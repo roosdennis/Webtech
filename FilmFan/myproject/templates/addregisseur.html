@@ -7,7 +7,9 @@
       {{ form.hidden_tag() }}
       {{ form.voornaam.label }} {{ form.voornaam() }} <br>
       {{ form.achternaam.label }} {{ form.achternaam() }} <br>
+      {% if current_user.is_authenticated %}
       {{ form.submit() }}
+      {% endif %}
   </form>
 </div>
 {% endblock %}

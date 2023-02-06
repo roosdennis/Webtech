@@ -9,7 +9,9 @@
       {{ form.jaartal.label }} {{ form.jaartal() }} <br>
       {{ form.regisseur.label }} {{ form.regisseur() }} <br>
       {{ form.youtube.label}} {{form.youtube()}} <br>
+      {% if current_user.is_authenticated %}
       {{ form.submit() }}
+      {% endif %}
   </form>
 </div>
 {% endblock %}

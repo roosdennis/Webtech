@@ -6,7 +6,9 @@
   <form method="POST">
       {{ form.hidden_tag() }}
       {{ form.id.label }} {{ form.id() }}
+      {% if current_user.is_authenticated %}
       {{ form.submit() }}
+      {% endif %}
   </form>
 </div>
 {% endblock %}
