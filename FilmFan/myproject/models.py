@@ -37,15 +37,18 @@ class Film(db.Model):
     jaartal = db.Column(db.Integer)
     regisseur_id = db.Column(db.Integer)
     youtube = db.Column(db.Text)
+    synopsis = db.column(db.Text)
     
-    def __init__(self, titel, jaartal, regisseur_id, youtube):
+    def __init__(self, titel, jaartal, regisseur_id, youtube, synopsis):
         self.titel = titel
         self.jaartal = jaartal
         self.regisseur_id = regisseur_id
         self.youtube = youtube
+        self.synopsis = synopsis
+
         
     def __repr__(self):
-        return f"Film {self.titel} is uitgekomen in {self.jaartal} en is geregisseerd door {self.regisseur_id}, het id van deze film is: {self.id}"    
+        return f"{self.id}: Film {self.titel} is uitgekomen in {self.jaartal} en is geregisseerd door {self.regisseur_id},"    
 
 class Regisseur(db.Model):
     __tablename__ = 'regisseur'
@@ -58,7 +61,7 @@ class Regisseur(db.Model):
         self.achternaam = achternaam
 
     def __repr__(self):
-        return f"{self.voornaam} {self.achternaam}"    
+        return f"{self.id}: {self.voornaam} {self.achternaam}"    
 
 class Acteur(db.Model):
     __tablename__ = 'acteur'
@@ -71,7 +74,7 @@ class Acteur(db.Model):
         self.achternaam = achternaam
 
     def __repr__(self):
-        return f"{self.voornaam} {self.achternaam}"    
+        return f"{self.id}: {self.voornaam} {self.achternaam}"    
 
 class Rol(db.Model):
     __tablename__ = 'rol'
